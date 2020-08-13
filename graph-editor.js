@@ -9,7 +9,19 @@ window.onload = function () {
         d3.select("link.graph-style")
             .attr("href", localStorage.getItem("graph-diagram-style"));
     }
-    graphModel = parseMarkup(localStorage.getItem("graph-diagram-markup"));
+    try {
+        const authResult = new URLSearchParams(window.location.search);
+        const queryParam = authResult.get('query')
+        if (queryParam) {
+            graphModel = parseMarkup(decodeURI(atob(queryParam)));
+            save(formatMarkup());
+        } else {
+            graphModel = parseMarkup(localStorage.getItem("graph-diagram-markup"));
+        }
+    } catch (err) {
+        console.error(err);
+        graphModel = parseMarkup(localStorage.getItem("graph-diagram-markup"));
+    }
 
     var svg = d3.select("#canvas")
         .append("svg:svg")
@@ -312,6 +324,9 @@ window.onload = function () {
         d3.select("textarea.code")
             .attr("rows", markup.split("\n").length * 2)
             .node().value = markup;
+        var url = window.location.origin + window.location.pathname;
+        url = url + "?query=" + btoa(encodeURI(markup));
+        d3.select("input.url").node().value = url;
     };
 
     function parseMarkup(markup) {
@@ -335,14 +350,9 @@ window.onload = function () {
     var upload = function () {
         var options = {
             success: function () {
-                // deletePasteUrl(key);
                 alert("Success! Files saved to your Dropbox.");
             },
-            cancel: function () {
-                // deletePasteUrl(key);
-            },
             error: function (errorMessage) {
-                // deletePasteUrl(key);
                 alert("Not able to upload file!")
             }
         };
