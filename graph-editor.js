@@ -12,9 +12,14 @@ window.onload = function () {
     try {
         const authResult = new URLSearchParams(window.location.search);
         const queryParam = authResult.get('query')
-        if (queryParam) {
+        var useQueryParam = true;
+        if (queryParam && localStorage.getItem("graph-diagram-markup")) {
+            useQueryParam = confirm("Are you sure? This will replace you current diagram. If you don't want to replace your current diagram, click cancel and export your current diagram as markup or URL.");
+        }
+        if (queryParam && useQueryParam) {
             graphModel = parseMarkup(decodeURI(atob(queryParam)));
             save(formatMarkup());
+            window.location = window.location.origin + window.location.pathname;
         } else {
             graphModel = parseMarkup(localStorage.getItem("graph-diagram-markup"));
         }
@@ -410,6 +415,14 @@ window.onload = function () {
             .node().value = statement;
     };
 
+    var clearCypher = function () {
+        var d = confirm("Are you sure?");
+        if (d) {
+            localStorage.removeItem("graph-diagram-markup");
+            window.location = window.location.origin + window.location.pathname;
+        }
+    };
+
 
     var chooseStyle = function () {
         appendModalBackdrop();
@@ -440,6 +453,7 @@ window.onload = function () {
     d3.select("#internalScale").on("change", changeInternalScale);
     d3.select("#exportMarkupButton").on("click", exportMarkup);
     d3.select("#exportCypherButton").on("click", exportCypher);
+    d3.select("#clearCypherButton").on("click", clearCypher);
     d3.select("#chooseStyleButton").on("click", chooseStyle);
     d3.selectAll(".modal-dialog").on("click", function () {
         d3.event.stopPropagation();
