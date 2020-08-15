@@ -415,6 +415,16 @@ window.onload = function () {
             .node().value = statement;
     };
 
+    var exportTodo = function () {
+        appendModalBackdrop();
+        d3.select(".modal.export-todo").classed("hide", false);
+
+        var statement = gd.todo(graphModel);
+        d3.select(".export-todo .modal-body textarea.todo")
+            .attr("rows", statement.split("\n").length)
+            .node().value = statement;
+    };
+
     var clearCypher = function () {
         var d = confirm("Are you sure?");
         if (d) {
@@ -453,6 +463,7 @@ window.onload = function () {
     d3.select("#internalScale").on("change", changeInternalScale);
     d3.select("#exportMarkupButton").on("click", exportMarkup);
     d3.select("#exportCypherButton").on("click", exportCypher);
+    d3.select("#exportTodoButton").on("click", exportTodo);
     d3.select("#clearCypherButton").on("click", clearCypher);
     d3.select("#chooseStyleButton").on("click", chooseStyle);
     d3.selectAll(".modal-dialog").on("click", function () {

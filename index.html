@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="style/graph-editor.css" type="text/css">
   <script type="text/javascript" src="graph-editor.js"></script>
   <script type="text/javascript" src="cypher.js"></script>
+  <script type="text/javascript" src="todo.js"></script>
   <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="6tpe8tp66rjst7d"></script>
   <title>Arrow Tool</title>
 </head>
@@ -19,6 +20,7 @@
   <button class="btn" id="add_node_button"><i class="icon-plus"></i> Node</button>
   <button class="btn" id="clearCypherButton">Clear</button>
   <button class="btn" id="exportCypherButton">Export Cypher</button>
+  <button class="btn" id="exportTodoButton">List Nodes</button>
   <button class="btn" id="exportMarkupButton">Export/Import Markup</button>
   <a class="btn" id="downloadSvgButton" download="arrows.svg">Download SVG</a>
   <button class="btn" id="chooseStyleButton">Choose Style</button>
@@ -42,6 +44,14 @@
     <a href="#" class="btn btn-primary" id="download">Choose from Dropbox</a>
     <a href="#" class="btn cancel">Cancel</a>
     <a href="#" class="btn btn-primary" id="save_markup">Save</a>
+  </div>
+</div>
+<div class="modal hide export-todo">
+  <div class="modal-header">
+    <h3>Nodes Captions</h3>
+  </div>
+  <div class="modal-body">
+    <textarea class="todo">Some text</textarea>
   </div>
 </div>
 <div class="modal hide choose-style">

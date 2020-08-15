@@ -30,11 +30,32 @@ svg.graphdiagram {
     max-height: 70%;
 }
 
+.modal.export-todo {
+    position: absolute;
+    width: 800px;
+    margin-left: -400px;
+}
+
+.modal.export-todo .modal-body {
+    overflow: hidden;
+    max-height: 70%;
+}
+
 p.button-row {
     text-align: right;
 }
 
 textarea.code {
+    padding: 0;
+    resize: none;
+    width: 760px;
+    border: none;
+    box-shadow: none;
+    font-family: Menlo, monospace;
+    font-size: 10pt;
+}
+
+textarea.todo {
     padding: 0;
     resize: none;
     width: 760px;
